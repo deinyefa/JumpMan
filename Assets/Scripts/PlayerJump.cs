@@ -1,9 +1,12 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 using System.Collections;
 
 public class PlayerJump : MonoBehaviour {
 
 	public static PlayerJump instance; 
+	public Text scoreText;
+	public int scoreValueOfPlatforms = 0;
 
 	private Rigidbody2D myBody;
 	private Animator anim;
@@ -18,6 +21,7 @@ public class PlayerJump : MonoBehaviour {
 
 	void Awake () {
 		MakeInstance ();
+		Initialize ();
 	}
 
 	void Update () {
@@ -63,7 +67,9 @@ public class PlayerJump : MonoBehaviour {
 
 	void OnTriggerEnter2D (Collider2D other) {
 		if (didJump) {
-			
+			if (other.tag == "Platform") {
+				scoreText.text = scoreValueOfPlatforms.ToString ();
+			}
 		}
 	}
 }
