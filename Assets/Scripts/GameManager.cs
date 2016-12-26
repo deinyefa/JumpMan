@@ -6,16 +6,23 @@ using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour {
 
-	private GameObject restartCanvans;
+	public Canvas restartButton;
+	private GameObject player;
 
 	void Awake () {
-		restartCanvans = GameObject.FindGameObjectWithTag ("Restart Canvas");
-		if (restartCanvans == null)
+		player = GameObject.FindGameObjectWithTag ("Player");
+		if (restartButton == null)
 			Debug.Log ("Can't find Restart_HUD!");
 	}
 
 	void Start () {
-		//restartCanvans.SetActive (false);
+		restartButton.enabled = !restartButton.enabled;
+	}
+
+	void Update () {
+		if (!player) {
+			restartButton.enabled = true;
+		}
 	}
 
 	public void RestartGame () {
@@ -24,7 +31,7 @@ public class GameManager : MonoBehaviour {
 
 	void OnTriggerEnter2D (Collider2D other) {
 		if (other.tag == "Player") {
-			restartCanvans.SetActive (true);
+			Destroy (other.gameObject);
 		}
 	}
 }
